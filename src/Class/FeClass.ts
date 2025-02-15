@@ -4,10 +4,10 @@ export class FeClass {
 
 
 
-    async createUser(user: User) {
+    async createUser(user: User) : Promise<User> {
 
         try {
-            const newAddedUser = await fetch("http://localhost:8080", {
+            const newAddedUser = await fetch("http://localhost:8080/users", {
                 method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
@@ -15,12 +15,17 @@ export class FeClass {
                 body: JSON.stringify(user)
             });
 
+            if (!newAddedUser) {
+                throw new Error(`HTTP ERROR: ${newAddedUser}`);
+            }
+
             return await newAddedUser.json();
 
         }
 
         catch (error) {
-            console.log(error);
+            console.error(error);
+            throw error;
         }
 
     }

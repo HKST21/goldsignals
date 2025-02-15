@@ -3,15 +3,14 @@ import cors from "cors";
 import {User} from "./betypes.";
 import GoldbeClass from "./beClass";
 
+
 const app = express();
 const port = 8080;
 
-app.use(cors());
+app.use(cors()); // middleware setup
 app.use(express.json());
 
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-});
+
 
 
 app.post("/users", async (req, res) => {
@@ -37,3 +36,8 @@ app.post("/users", async (req, res) => {
 
     }
 })
+
+
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});

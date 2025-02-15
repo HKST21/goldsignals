@@ -1,0 +1,19 @@
+.Header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    background-color: black;
+    color: white;
+}
+
+.Header div {
+    text-align: center;  /* Horizontální centrování */
+    justify-self: center;  /* Centrování v grid buňce */
+}
+
+.header button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 8px;
+}

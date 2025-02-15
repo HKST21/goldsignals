@@ -1,15 +1,22 @@
 import * as React from "react";
 import {useState} from "react";
 import {feClass} from "../Class/FeClass.ts";
+import {SectionPick} from "../App.tsx";
 
 
 interface User {
+    id?: number;
     email: string,
     phone: string,
     password: string
 }
 
-export function Section() {
+interface SectionProps {
+    setCurrentSection: React.Dispatch<React.SetStateAction<SectionPick>>
+    setLoggedUser: React.Dispatch<React.SetStateAction<User | null>>
+}
+
+export function RegSection({setCurrentSection, setLoggedUser}: SectionProps) {
 
     const [registerForm, setRegisterForm] = useState(false);
     const [newUser, setNewUser] = useState<User>({
@@ -18,7 +25,6 @@ export function Section() {
         password: "",
     });
 
-    const [loggedUser, setLoggedUser] = useState<User | null>(null);
 
     const handleRegister = (e: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -39,6 +45,8 @@ export function Section() {
         feClass.createUser(newUser).then((response) => {
 
             setLoggedUser(response);
+            setCurrentSection("signals")
+
 
         }).catch((error) => {
             console.log("User wasnt created", error);
@@ -51,10 +59,11 @@ export function Section() {
             <p>
                 Struggling with your prop or live trading account? We are here to help you beat the market and MAKE
                 MONEY on the market.
-                We are experts in GOLD trading. Become member and receive 3 VIP XAUUSD signals a day created by gold trading masters and AI analysis.
+                We are experts in GOLD trading. Become member and receive 3 VIP XAUUSD signals a day created by gold
+                trading masters and AI analysis.
                 We analyse GOLD so you can trade. Join us NOW and get your first GOLD signals for FREE.
             </p>
-            <p>{loggedUser?.email}</p>
+
             {registerForm ? (
                 <div>
                     <p>
@@ -62,26 +71,26 @@ export function Section() {
                     </p>
                     <form onSubmit={handleSubmitRegister}>
                         <input
-                        type="text"
-                        name="email"
-                        placeholder="Email"
-                        value={newUser.email}
-                        onChange={handleRegister}
-                        required={true}/>
+                            type="text"
+                            name="email"
+                            placeholder="Email"
+                            value={newUser.email}
+                            onChange={handleRegister}
+                            required={true}/>
                         <input
-                        type="text"
-                        name="phone"
-                        placeholder="Phone number"
-                        value={newUser.phone}
-                        onChange={handleRegister}
-                        required={true}/>
+                            type="text"
+                            name="phone"
+                            placeholder="Phone number"
+                            value={newUser.phone}
+                            onChange={handleRegister}
+                            required={true}/>
                         <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={newUser.password}
-                        onChange={handleRegister}
-                        required={true}/>
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            value={newUser.password}
+                            onChange={handleRegister}
+                            required={true}/>
 
                         <button type="submit">REGISTER</button>
                     </form>
@@ -97,9 +106,9 @@ export function Section() {
                         <li>Learn from experts with a proven track record (93.45% Success Rate)</li>
                     </ul>
 
-            </div>)}
+                </div>)}
 
-            {!registerForm && <button onClick={()=>setRegisterForm(true)}>JOIN NOW FOR FREE</button>}
+            {!registerForm && <button onClick={() => setRegisterForm(true)}>JOIN NOW FOR FREE</button>}
 
 
         </div>
