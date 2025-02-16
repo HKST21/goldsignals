@@ -1,4 +1,4 @@
-import {User} from "./betypes.";
+import {Signal, User} from "./betypes.";
 import pool from "./database";
 
 export class beClass {
@@ -24,11 +24,11 @@ export class beClass {
 
     }
 
-    async getGoldPrice() {
+    async getGoldPrice(currency: string) {
 
         try {
 
-            const response = await fetch('https://www.alphavantage.co/query?function=GOLD&apikey=BJ7FEOZ8K4KW4YAG')
+            const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=gold&vs_currencies=${currency.toLowerCase()}`)
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -46,6 +46,19 @@ export class beClass {
         }
 
 
+    }
+
+    async testSignal() {
+
+        const TestSignal: Signal = {
+            entryPrice: 2900,
+            TP1: 2902,
+            TP2: 2904,
+            TP3: 2908,
+            SL: 2880,
+        }
+
+        return await TestSignal;
     }
 }
 

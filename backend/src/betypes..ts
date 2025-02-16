@@ -4,3 +4,11 @@ export interface User {
     phone: string,
     password: string
 }
+
+export interface Signal {
+    entryPrice: number,
+    TP1: number,
+    TP2: number,
+    TP3: number,
+    SL: number,
+}

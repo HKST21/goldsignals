@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import {User} from "./betypes.";
-import GoldbeClass from "./beClass";
+import GoldbeClass, {beClass} from "./beClass";
 
 
 const app = express();
@@ -32,6 +32,27 @@ app.post("/users", async (req, res) => {
 
     catch (error) {
 
+        console.log(error);
+
+    }
+})
+
+app.get("/goldprice/:currency", async (req, res) => {
+
+    const { currency } = req.params;
+    try {
+
+        const actualPrice = await GoldbeClass.getGoldPrice(currency);
+
+        if (!actualPrice) {
+            console.error("failed to getGold price");
+        }
+
+        res.json(actualPrice);
+
+    }
+
+    catch (error) {
         console.log(error);
 
     }

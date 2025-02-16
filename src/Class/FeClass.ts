@@ -29,6 +29,30 @@ export class FeClass {
         }
 
     }
+
+    async getGoldPrice(currency: string) {
+
+        try {
+
+            const response = await fetch(`http://localhost:8080/goldprice/${currency}`);
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+
+            return await response.json();
+
+        }
+
+        catch (error) {
+            console.error("Unable to get gold price", error);
+            throw error;
+        }
+
+
+
+    }
 }
 
 export const feClass = new FeClass();
