@@ -58,6 +58,26 @@ app.get("/goldprice/:currency", async (req, res) => {
     }
 })
 
+app.get("/signals", async (_req, res) => {
+    try {
+        const response = await GoldbeClass.getTestSignal();
+
+        res.json(response);
+
+        return
+
+
+    }
+
+    catch (error) {
+        console.error("failed to getTestSignal", error);
+
+        res.status(500).json({error: "failed to get signal"});
+
+        return
+    }
+})
+
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

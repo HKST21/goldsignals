@@ -53,6 +53,23 @@ export class FeClass {
 
 
     }
+
+    async getSignal() {
+
+        try {
+            const response = await fetch(`http://localhost:8080/signals`)
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return await response.json();
+        }
+
+        catch (error) {
+            console.error("Unable to get signal", error);
+            throw error;
+        }
+    }
 }
 
 export const feClass = new FeClass();
