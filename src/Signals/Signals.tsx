@@ -20,7 +20,6 @@ interface goldPriceObject { // interface based on data coming from API, property
 }
 
 
-
 export function Signals({loggedUser}: signalsProps) {
 
     const [goldPrice, setGoldPrice] = useState<goldPriceObject>({
@@ -37,11 +36,26 @@ export function Signals({loggedUser}: signalsProps) {
 
 
     useEffect(() => {
+        const fetchSignals = async () => {
+
+            try {
+                const signalsFromDb = await feClass.getSignal();
+
+                if (signalsFromDb) {
+                    setSignals(signalsFromDb);
+                    console.log("prvni signal", signalsFromDb)
+                }
+            }
+
+            catch (e) {
+                console.error("unable to fetch signals", e);
+            }
+        }
         const fetchGoldPrice = async () => {
 
             try {
                 const actualPrice = await feClass.getGoldPrice('USD');
-                const signalsFromDb = await feClass.getSignal();
+
 
                 if (actualPrice) {
                     setGoldPrice(actualPrice);
@@ -49,10 +63,7 @@ export function Signals({loggedUser}: signalsProps) {
                     console.log("datový typ", typeof actualPrice);
                 }
 
-                if (signalsFromDb) {
-                    setSignals(signalsFromDb);
-                    console.log("prvni signal", signalsFromDb)
-                }
+
 
             } catch (e) {
                 console.error("unable to load gold price", e);
@@ -60,8 +71,8 @@ export function Signals({loggedUser}: signalsProps) {
 
 
         }
-        fetchGoldPrice();
-
+        //*fetchGoldPrice();*/
+        fetchSignals()
         const intervalId = setInterval(fetchGoldPrice, 600000) // vracíme ID intervalu pro cleanup
 
         return () => {
@@ -83,18 +94,19 @@ export function Signals({loggedUser}: signalsProps) {
                 we have for you first signal: {signals.map((signal, id) => (
                 <div key={id}>
                     <p/>
-                    {signal.entryprice}
+                    ENTRY PRICE {signal.entryprice}
                     <p/>
-                    {signal.direction}
+                    DIRECTION {signal.direction}
                     <p/>
-                    {signal.tp1}
+                    TP1 {signal.tp1}
                     <p/>
-                    {signal.tp2}
+                    TP2 {signal.tp2}
                     <p/>
-                    {signal.tp3}
+                    TP3 {signal.tp3}
                     <p/>
-                    {signal.sl}
+                    SL {signal.sl}
                     <p/>
+                    Respect your lot size!
 
                 </div>
             ))}

@@ -30,7 +30,7 @@ export function Header({loggedUser, setLoggedUser, setCurrentSection} : HeaderPr
             )}
 
             <div>
-                logo
+                <img className={"img"} src={"./public/logo.png"}/>
             </div>
             {loggedUser ? (
                 <button  onClick={handleLogout}>LOG OUT</button>

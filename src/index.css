@@ -1,0 +1,37 @@
+body {
+    font-family: DM Sans, sans-serif;
+    font-size: 1.3rem;
+    padding: 0;
+    margin: 0;
+
+}
+
+button {
+    appearance: none;
+    background-color: #000000;
+    border: 2px solid #000000;
+    border-radius: 15px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: normal;
+    margin: 0; min-height: 60px; min-width: 0; outline: none; padding: 16px 24px; text-align: center;
+}
+
+button:hover {
+    color: #3EBF3E;
+
+}
+
+
+
+.neco {
+    color: #3EBF3E;
+    color: #A2D8A2;
+    color: #F2F2F2;
+    color: #2E2E2E;
+    color: #1A4D1A
+}
