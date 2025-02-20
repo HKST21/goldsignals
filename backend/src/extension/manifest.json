@@ -7,12 +7,21 @@
     "activeTab",
     "storage"
   ],
+  "host_permissions": [
+    "https://web.telegram.org/*",
+    "http://localhost:8080/*"
+  ],
   "content_scripts": [{
     "matches": ["https://web.telegram.org/*"],
-    "js": ["dist/content.js"]
+    "js": ["dist/content.js"],
+    "run_at": "document_idle"
   }],
   "icons": {
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
-  }
+  },
+  "web_accessible_resources": [{
+    "resources": ["dist/*"],
+    "matches": ["https://web.telegram.org/*"]
+  }]
 }

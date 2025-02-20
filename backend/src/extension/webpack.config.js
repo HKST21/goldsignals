@@ -1,6 +1,8 @@
 const path = require('path');
 
 module.exports = {
+    mode: 'development',
+    devtool: 'cheap-module-source-map',
     entry: './src/index.tsx',
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -18,5 +20,7 @@ module.exports = {
     resolve: {
         extensions: ['.tsx', '.ts', '.js']
     },
-    mode: 'development'  // Pro vývoj
+    optimization: {
+        minimize: false
+    }
 };
