@@ -78,6 +78,22 @@ app.get("/signals", async (_req, res) => {
     }
 })
 
+app.post("/analyze-message", async (req, res) => {
+
+    const {text} = req.body;
+    console.log("endpoint data", text);
+
+    try {
+        const response = await GoldbeClass.createSignal(text);
+
+        res.json(response);
+    }
+
+    catch (error) {
+        console.error('failed to send text signal to backend', error);
+    }
+})
+
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

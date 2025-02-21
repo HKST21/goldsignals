@@ -47,6 +47,51 @@ export class beClass {
 
     }
 
+    async createSignal(text: string) {
+
+        try {
+            console.log('received this data for creating signal', text);
+
+            const cleanedText = text.toLowerCase().replace(/\s+/g, '');
+
+            console.log('corrected text', cleanedText);
+
+            const entrypriceMatch = cleanedText.match(/entryprice(\d+)/)?.[1];
+            const directionMatch = cleanedText.includes("buy") ? "buy" : "sell";
+            const tp1Match = cleanedText.match(/tp1:(\d+)/)?.[1];
+            const tp2Match = cleanedText.match(/tp2:(\d+)/)?.[1];
+            const tp3Match = cleanedText.match(/tp3:(\d+)/)?.[1];
+            const slMatch = cleanedText.match(/sl(\d+)/)?.[1];
+            if(entrypriceMatch && directionMatch && tp1Match && tp2Match && tp3Match && slMatch) {
+
+                const signal : Signal = {
+                    entryprice: parseInt(entrypriceMatch),
+                    direction: directionMatch,
+                    tp1: parseInt(tp1Match),
+                    tp2: parseInt(tp2Match),
+                    tp3: parseInt(tp3Match),
+                    sl: parseInt(slMatch),
+                }
+
+                console.log("object Signal", signal);
+
+                const response = pool.query(
+                    `INSERT INTO signals(entryprice, direction, tp1, tp2, tp3, sl)
+                                               VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+                    [signal.entryprice, signal.direction, signal.tp1, signal.tp2, signal.tp3, signal.sl])
+
+                return response;
+            }
+
+
+
+        }
+        catch (error) {
+            console.error('error creating Signal: ', error);
+            throw new Error
+        }
+    }
+
     async getTestSignal() {
 
         try {
