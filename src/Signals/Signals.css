@@ -1,0 +1,47 @@
+/* Overall page container */
+.signals-page {
+    padding: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Welcome message styling */
+.welcome-message {
+    margin-bottom: 30px;
+    font-size: 2rem;
+    padding: 15px;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Gold price display */
+.gold-price {
+    font-weight: bold;
+    color: #3EBF3E;
+}
+
+/* Signal cards container */
+.signal-section {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* Individual signal card */
+.each-signal {
+    background-color: #1A4D1A;
+    color: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    min-width: 300px;
+    max-width: 450px;
+    flex: 1;
+}
+
+/* Hide signals beyond the first two */
+.each-signal:nth-child(n+3) {
+    display: none;
+}

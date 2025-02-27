@@ -47,7 +47,7 @@ export class beClass {
 
     }
 
-    async createSignal(text: string) {
+    async createSignal(text: string, timestamp: string) {
 
         try {
             console.log('received this data for creating signal', text);
@@ -65,6 +65,7 @@ export class beClass {
             if(entrypriceMatch && directionMatch && tp1Match && tp2Match && tp3Match && slMatch) {
 
                 const signal : Signal = {
+                    timestamp: timestamp,
                     entryprice: parseInt(entrypriceMatch),
                     direction: directionMatch,
                     tp1: parseInt(tp1Match),
@@ -76,9 +77,9 @@ export class beClass {
                 console.log("object Signal", signal);
 
                 const response = pool.query(
-                    `INSERT INTO signals(entryprice, direction, tp1, tp2, tp3, sl)
-                                               VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-                    [signal.entryprice, signal.direction, signal.tp1, signal.tp2, signal.tp3, signal.sl])
+                    `INSERT INTO signals(timestamp, entryprice, direction, tp1, tp2, tp3, sl)
+                                               VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+                    [signal.timestamp, signal.entryprice, signal.direction, signal.tp1, signal.tp2, signal.tp3, signal.sl])
 
                 return response;
             }
@@ -97,6 +98,7 @@ export class beClass {
         try {
 
             const TestSignal: Signal = {
+                timestamp: "1.1.2022",
                 entryprice: 2900,
                 direction: "buy",
                 tp1: 2902,
@@ -126,6 +128,25 @@ export class beClass {
         }
 
 
+    }
+
+    async getAllSignals(): Promise<Signal[]> {
+        try {
+            const response = await pool.query('SELECT * FROM signals');
+
+
+            const signalArray = response.rows.map((row) => ({
+                ...row,
+                entryprice: parseInt(row.entryprice),
+            }))
+
+            return signalArray;
+
+        }
+        catch (error) {
+            console.error('error creating all signals', error);
+            throw new Error;
+        }
     }
 }
 

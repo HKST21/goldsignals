@@ -6,6 +6,7 @@ export interface User {
 }
 
 export interface Signal {
+    timestamp: string,
     entryprice: number,
     direction: "buy" | "sell",
     tp1: number,

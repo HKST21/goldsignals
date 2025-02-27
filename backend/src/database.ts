@@ -20,6 +20,7 @@ const initDatabase = async () => {
     )`);
 
         await pool.query(`CREATE TABLE IF NOT EXISTS signals (
+    timestamp VARCHAR(255) UNIQUE NOT NULL,
     id SERIAL PRIMARY KEY,
     entryprice INTEGER NOT NULL,
     direction VARCHAR(255) NOT NULL,

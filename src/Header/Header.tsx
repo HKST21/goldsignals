@@ -23,7 +23,7 @@ export function Header({loggedUser, setLoggedUser, setCurrentSection} : HeaderPr
         <div className={"Header"}>
             {loggedUser ? (
                 <div>
-                    Hello {loggedUser.email}
+                    👋 {loggedUser.email}
                 </div>
             ) : (
                 <button>LOGIN</button>

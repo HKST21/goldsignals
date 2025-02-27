@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import {User} from "./betypes.";
-import GoldbeClass, {beClass} from "./beClass";
+import GoldbeClass from "./beClass";
 
 
 const app = express();
@@ -60,7 +60,7 @@ app.get("/goldprice/:currency", async (req, res) => {
 
 app.get("/signals", async (_req, res) => {
     try {
-        const response = await GoldbeClass.getTestSignal();
+        const response = await GoldbeClass.getAllSignals();
 
         res.json(response);
 
@@ -80,11 +80,11 @@ app.get("/signals", async (_req, res) => {
 
 app.post("/analyze-message", async (req, res) => {
 
-    const {text} = req.body;
-    console.log("endpoint data", text);
+    const {text, timestamp} = req.body;
+    console.log("endpoint data", text, timestamp);
 
     try {
-        const response = await GoldbeClass.createSignal(text);
+        const response = await GoldbeClass.createSignal(text, timestamp);
 
         res.json(response);
     }
