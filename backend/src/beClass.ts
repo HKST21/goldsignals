@@ -3,6 +3,8 @@ import pool from "./database";
 
 export class beClass {
 
+    private goldPriceIntervalId: NodeJS.Timeout | null = null;
+
 
     async registerUser(user: User) {
 
@@ -24,12 +26,23 @@ export class beClass {
 
     }
 
-    async getGoldPrice(currency: string) {
+    async getGoldPriceFromDb () {
 
         try {
+            const response = await pool.query(`SELECT * FROM goldprice ORDER BY created_at DESC LIMIT 1`);
 
-            const response = await fetch(`https://api.metalpriceapi.com/v1/latest?api_key=2b5804db68a17a8bb3030df1de828473&base=${currency}&currencies=XAU`)
+                return response.rows[0] || null;
 
+        }
+        catch (error) {
+            console.error('Error getting gold price from DB:', error);
+            throw error;
+        }
+    }
+
+    async addGoldPriceToDB(currency: string) {
+        try {
+            const response = await fetch(`https://api.metalpriceapi.com/v1/latest?api_key=2b5804db68a17a8bb3030df1de828473&base=${currency}&currencies=XAU`);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -37,9 +50,81 @@ export class beClass {
 
             const data = await response.json();
 
+            // Jednoduchý INSERT bez RETURNING
+            await pool.query(
+                `INSERT INTO goldprice(price) VALUES ($1)`,
+                [data.rates.USDXAU]
+            );
+
+            // Nemusíme nic vracet, protože jde jen o vložení dat
+        }
+        catch (error) {
+            console.error('Error adding gold price to DB:', error);
+            throw error;
+        }
+    }
+
+    async startGoldPriceUpdates(intervalMs: number) {
+        // Vytvoříme wrapper funkci pro zpracování jedné aktualizace
+        const updatePrice = async () => {
+            try {
+                await this.addGoldPriceToDB('USD');
+                console.log('Gold price successfully updated');
+            } catch (error) {
+                // Tady zachytíme chyby z addGoldPriceToDB
+                console.error('Failed to update gold price:', error);
+                // Necháme interval běžet dál i při chybě
+            }
+        };
+
+        // Spustíme první aktualizaci okamžitě
+        await updatePrice();
+
+        // Nastavíme pravidelné aktualizace
+        const intervalId = setInterval(updatePrice, intervalMs);
+
+        // Uložíme ID intervalu pro případné pozdější zastavení
+        this.goldPriceIntervalId = intervalId;
+
+        return intervalId;
+    }
+
+// Přidáme metodu pro zastavení aktualizací
+    stopGoldPriceUpdates() {
+        if (this.goldPriceIntervalId) {
+            clearInterval(this.goldPriceIntervalId);
+            this.goldPriceIntervalId = null;
+            console.log('Gold price updates stopped');
+        }
+    }
 
 
-            return data
+
+
+    async getGoldPrice(currency: string) {
+
+        try {
+
+            const response = await fetch(`https://api.metalpriceapi.com/v1/latest?api_key=2b5804db68a17a8bb3030df1de828473&base=${currency}&currencies=XAU`);
+
+            if (response.ok) {
+
+                const data = await response.json();
+
+                const goldPrices = await pool.query(`INSERT INTO goldprice(price) VALUES ($1) RETURNING *`, [data.rates.USDXAU] );
+
+                const lastPriceOfGold = goldPrices.rows[0];
+
+                return lastPriceOfGold;
+            }
+
+
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+
         } catch (error) {
             console.error(error);
         }
@@ -93,42 +178,6 @@ export class beClass {
         }
     }
 
-    async getTestSignal() {
-
-        try {
-
-            const TestSignal: Signal = {
-                timestamp: "1.1.2022",
-                entryprice: 2900,
-                direction: "buy",
-                tp1: 2902,
-                tp2: 2904,
-                tp3: 2908,
-                sl: 2880,
-            }
-
-            console.log("test signal před vstupe do databaze", TestSignal);
-
-            const response = await pool.query(`INSERT INTO signals(entryprice, direction, tp1, tp2, tp3, sl)
-                                               VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-                [TestSignal.entryprice, TestSignal.direction, TestSignal.tp1, TestSignal.tp2, TestSignal.tp3, TestSignal.sl]);
-
-            console.log("Signal přímo z databáze:", response.rows[0]);
-            const result = response.rows.map((row) => ({
-                ...row,
-                entryprice: parseInt(row.entryprice),
-            }));
-
-            console.log('returned added signal to database: ', result);
-
-            return result
-
-        } catch (error) {
-            console.error("unable to create ", error);
-        }
-
-
-    }
 
     async getAllSignals(): Promise<Signal[]> {
         try {

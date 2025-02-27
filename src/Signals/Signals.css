@@ -39,6 +39,13 @@
     min-width: 300px;
     max-width: 450px;
     flex: 1;
+    transition: all .4s ease;
+}
+
+.each-signal:hover {
+    background-color: #3EBF3E;
+    color: black;
+
 }
 
 /* Hide signals beyond the first two */

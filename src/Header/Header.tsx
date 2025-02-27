@@ -22,7 +22,7 @@ export function Header({loggedUser, setLoggedUser, setCurrentSection} : HeaderPr
     return (
         <div className={"Header"}>
             {loggedUser ? (
-                <div>
+                <div className={"logged"}>
                     👋 {loggedUser.email}
                 </div>
             ) : (
@@ -30,7 +30,7 @@ export function Header({loggedUser, setLoggedUser, setCurrentSection} : HeaderPr
             )}
 
             <div>
-                <img className={"img"} src={"./public/logo.png"}/>
+                <img className={"img"} src={"./public/logo2.png"}/>
             </div>
             {loggedUser ? (
                 <button  onClick={handleLogout}>LOG OUT</button>

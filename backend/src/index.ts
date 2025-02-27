@@ -39,10 +39,13 @@ app.post("/users", async (req, res) => {
 
 app.get("/goldprice/:currency", async (req, res) => {
 
-    const { currency } = req.params;
+    const currency = req.params.currency;
+
+    console.log("requested currency", currency);
+
     try {
 
-        const actualPrice = await GoldbeClass.getGoldPrice(currency);
+        const actualPrice = await GoldbeClass.getGoldPriceFromDb();
 
         if (!actualPrice) {
             console.error("failed to getGold price");
@@ -97,4 +100,5 @@ app.post("/analyze-message", async (req, res) => {
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
+    GoldbeClass.startGoldPriceUpdates(30000000);
 });

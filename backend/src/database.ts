@@ -30,6 +30,11 @@ const initDatabase = async () => {
     SL INTEGER NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL)`)
 
+        await pool.query(`CREATE TABLE IF NOT EXISTS goldprice (
+    id SERIAL PRIMARY KEY,
+    price DECIMAL(10,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL)`)
+
         console.log('TABLE CREATED SUCCESFULLY');
     }
 

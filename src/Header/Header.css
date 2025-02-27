@@ -3,12 +3,17 @@
     grid-template-columns: auto 1fr auto;
     background-color: black;
     color: white;
+    align-items: center;
+    padding: 10px
 }
 
 .Header div {
     text-align: center;  /* Horizontální centrování */
     justify-self: center;  /* Centrování v grid buňce */
 }
+
+
+
 
 .header button {
     background: none;

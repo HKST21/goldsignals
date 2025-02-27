@@ -11,13 +11,9 @@ interface signalsProps {
 
 
 interface goldPriceObject { // interface based on data coming from API, property name gold, which has value another object, which has property usd and value number
-    success: boolean,
-    base: string,
-    timestamp: number,
-    rates: {
-        USDXAU: number,
-        XAU: number,
-    }
+    id?: number,
+    price: number,
+    created_at?: string
 
 }
 
@@ -25,13 +21,7 @@ interface goldPriceObject { // interface based on data coming from API, property
 export function Signals({loggedUser}: signalsProps) {
 
     const [goldPrice, setGoldPrice] = useState<goldPriceObject>({
-        success: false,
-        base: "",
-        timestamp: 0,
-        rates: {
-            USDXAU: 0,
-            XAU: 0,
-        }
+        price: 0,
     });
 
     const [signals, setSignals] = useState<Signal[]>([]);
@@ -89,7 +79,7 @@ export function Signals({loggedUser}: signalsProps) {
 
 
         if (signal.direction === "buy") {
-            const result = goldPrice.rates.USDXAU - signal.entryprice;
+            const result = goldPrice.price - signal.entryprice;
             setSignalResult(prevState =>
                 ({
                     ...prevState,
@@ -99,9 +89,9 @@ export function Signals({loggedUser}: signalsProps) {
             setTplResult(prevState => ({
                 ...prevState,
                 [signal.timestamp]: {
-                    tp1: goldPrice.rates.USDXAU >= signal.tp1,
-                    tp2: goldPrice.rates.USDXAU >= signal.tp2,
-                    tp3: goldPrice.rates.USDXAU >= signal.tp3,
+                    tp1: goldPrice.price >= signal.tp1,
+                    tp2: goldPrice.price >= signal.tp2,
+                    tp3: goldPrice.price >= signal.tp3,
                 }
             }))
 
@@ -109,7 +99,7 @@ export function Signals({loggedUser}: signalsProps) {
 
             return signal;
         } else {
-            const result = signal.entryprice - goldPrice.rates.USDXAU;
+            const result = signal.entryprice - goldPrice.price;
             setSignalResult(prevState => ({
                 ...prevState,
                 [signal.timestamp]: result
@@ -118,9 +108,9 @@ export function Signals({loggedUser}: signalsProps) {
             setTplResult(prevState => ({
                     ...prevState,
                     [signal.timestamp]: {
-                        tp1: goldPrice.rates.USDXAU <= signal.tp1,
-                        tp2: goldPrice.rates.USDXAU <= signal.tp2,
-                        tp3: goldPrice.rates.USDXAU <= signal.tp3,
+                        tp1: goldPrice.price <= signal.tp1,
+                        tp2: goldPrice.price <= signal.tp2,
+                        tp3: goldPrice.price <= signal.tp3,
                     }
                 }
             ))
@@ -154,14 +144,14 @@ export function Signals({loggedUser}: signalsProps) {
         }
 
 
-    }, [goldPrice.rates.USDXAU, signals]);
+    }, [goldPrice.price, signals]);
 
 
     return (
         <div className={"signals-page"}>
             <div className={"welcome-message"}>
                 Welcome to our GOLD signals page ! {loggedUser?.email}
-                <div>This is actual price of gold: <span className="gold-price">{goldPrice.rates.USDXAU}</span></div>
+                <div>This is actual price of gold: <span className="gold-price">{goldPrice.price}</span></div>
             </div>
 
             <div className={"signal-section"}>
@@ -194,7 +184,7 @@ export function Signals({loggedUser}: signalsProps) {
                     <p/>
                     SL {signal.sl}
                     <p/>
-                    Respect your lot size according to your trading account size!
+                    Respect your lot size according to your trading account size‼️
                     <div>
                         <div> ACTUAL SIGNAL PROFIT/LOSS = {signalResult[signal.timestamp] ? signalResult[signal.timestamp].toFixed(4)  : "loading"}</div>
                     </div>

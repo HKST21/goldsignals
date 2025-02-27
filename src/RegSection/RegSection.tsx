@@ -63,11 +63,9 @@ export function RegSection({setCurrentSection, setLoggedUser}: SectionProps) {
                     We <span>analyse</span> the GOLD market so you can trade. Elevate your winning trades on XAUUSD!
                 </h2>
                 <p>
-                    We are here to help you <span>beat</span> the market and MAKE
-                    MONEY on the market.
-                    <span>We are experts in GOLD trading</span>. Become member and receive <span>3 VIP XAUUSD</span> signals a day
-                    created by gold
-                    trading masters and AI analysis.
+                    We are here to help you <span>beat</span> the market. Are you struggling with your trading account ? We believe in mastering one asset, than focuse on everything at once.
+                    <span> OUR APP is expertized in GOLD trading</span>. Become member and receive <span>2 VIP XAUUSD</span> signals a day. Do you want proofs? Our service is FREE for 7 days, check our results and become member🙌
+                    .
 
                 </p>
             </div>
