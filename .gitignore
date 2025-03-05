@@ -1,0 +1,17 @@
+# Node
+node_modules/
+npm-debug.log
+
+# Build výstupy
+/frontend/dist/
+/backend/dist/
+
+# Prostředí
+.env
+.env.local
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
