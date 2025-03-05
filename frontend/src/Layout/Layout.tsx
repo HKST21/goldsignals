@@ -2,7 +2,7 @@ import React from 'react';
 import {Header} from "../Header/Header.tsx";
 import {Footer} from "../Footer/Footer.tsx";
 import "./Layout.css"
-import {User} from "../Types/types..ts";
+import {User} from "../Types/types.ts";
 import {SectionPick} from "../App.tsx";
 
 interface LayoutProps {

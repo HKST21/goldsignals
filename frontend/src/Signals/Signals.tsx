@@ -1,7 +1,7 @@
-import {signalResult, User} from "../Types/types..ts";
+import {signalResult, User} from "../Types/types.ts";
 import {feClass} from "../Class/FeClass.ts";
 import {useState, useEffect} from "react";
-import {Signal, tpResult} from "../Types/types..ts";
+import {Signal, tpResult} from "../Types/types.ts";
 import "./Signals.css"
 
 

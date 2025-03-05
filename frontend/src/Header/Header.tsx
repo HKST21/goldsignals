@@ -1,5 +1,5 @@
 import "./Header.css"
-import {User} from "../Types/types..ts";
+import {User} from "../Types/types.ts";
 import React from "react";
 import {SectionPick} from "../App.tsx";
 

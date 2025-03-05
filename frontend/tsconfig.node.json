@@ -6,8 +6,9 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
-    /* Bundler mode */
-    "moduleResolution": "bundler",
+    /* Změna z bundler na node16 pro správné rozpoznání Node.js modulů */
+    "moduleResolution": "node16",
+
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
@@ -18,7 +19,14 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    /* Přidání cest pro vitejs moduly */
+    "paths": {
+      "@vitejs/*": ["./node_modules/@vitejs/*"]
+    }
   },
-  "include": ["vite.config.ts"]
+  "include": [
+    "vite.config.ts"
+  ]
 }

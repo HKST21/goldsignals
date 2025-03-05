@@ -1,13 +1,17 @@
-import {User} from "../Types/types..ts";
+import {User} from "../Types/types";
 
 export class FeClass {
+    private apiUrl: string;
 
+    constructor() {
+        this.apiUrl = import.meta.env.VITE_API_URL || "http://localhost:8080";
+    }
 
 
     async createUser(user: User) : Promise<User> {
 
         try {
-            const newAddedUser = await fetch("http://localhost:8080/users", {
+            const newAddedUser = await fetch(`${this.apiUrl}/users`, {
                 method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
@@ -34,7 +38,7 @@ export class FeClass {
 
         try {
 
-            const response = await fetch(`http://localhost:8080/goldprice/${currency}`);
+            const response = await fetch(`${this.apiUrl}/goldprice/${currency}`);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -57,7 +61,7 @@ export class FeClass {
     async getSignal() {
 
         try {
-            const response = await fetch(`http://localhost:8080/signals`)
+            const response = await fetch(`${this.apiUrl}/signals`)
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);

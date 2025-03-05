@@ -5,9 +5,16 @@ import GoldbeClass from "./beClass";
 
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 8080;
 
-app.use(cors()); // middleware setup
+app.use(cors({
+    origin: [
+        'http://localhost:5173',                // Lokální vývoj (Vite výchozí port)
+        'https://hkst21.github.io'              // Tvá GitHub Pages doména
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
 app.use(express.json());
 
 
@@ -99,6 +106,6 @@ app.post("/analyze-message", async (req, res) => {
 
 
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Server is running on port ${port}`);
     GoldbeClass.startGoldPriceUpdates(30000000);
 });

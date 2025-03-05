@@ -3,7 +3,7 @@ import './App.css'
 import {Layout} from "./Layout/Layout.tsx";
 import {RegSection} from "./RegSection/RegSection.tsx";
 import {Reviews} from "./Reviews/Reviews.tsx";
-import {User} from "./Types/types..ts";
+import {User} from "./Types/types.ts";
 import {Signals} from "./Signals/Signals.tsx";
 
 
