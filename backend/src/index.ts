@@ -13,7 +13,8 @@ const port = process.env.PORT || 8080;
 app.use(cors({
     origin: [
         'http://localhost:5173',                // Lokální vývoj (Vite výchozí port)
-        'https://hkst21.github.io'              // Tvá GitHub Pages doména
+        'https://hkst21.github.io',
+        'https://hkst21.github.io/goldsignals'
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
