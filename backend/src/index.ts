@@ -25,7 +25,7 @@ app.use(express.json());
 
 app.post("/users", async (req : Request, res: Response) => {
     try {
-        const user: User = req.body;
+        const user: User = (req.body as unknown) as User;
 
         if (user) {
 
@@ -35,7 +35,7 @@ app.post("/users", async (req : Request, res: Response) => {
                 console.error("failed to register user in backend")
             }
 
-            res.json(response);
+            (res as any).json(response);
         }
 
     }
@@ -49,7 +49,7 @@ app.post("/users", async (req : Request, res: Response) => {
 
 app.get("/goldprice/:currency", async (req: Request, res: Response) => {
 
-    const currency = req.params.currency;
+    const currency = (req as any).params.currency;
 
     console.log("requested currency", currency);
 
@@ -61,7 +61,7 @@ app.get("/goldprice/:currency", async (req: Request, res: Response) => {
             console.error("failed to getGold price");
         }
 
-        res.json(actualPrice);
+        (res as any).json(actualPrice);
 
     }
 
@@ -75,7 +75,7 @@ app.get("/signals", async (_req: Request, res: Response) => {
     try {
         const response = await GoldbeClass.getAllSignals();
 
-        res.json(response);
+        (res as any).json(response);
 
         return
 
@@ -85,7 +85,7 @@ app.get("/signals", async (_req: Request, res: Response) => {
     catch (error) {
         console.error("failed to getTestSignal", error);
 
-        res.status(500).json({error: "failed to get signal"});
+        (res as any).status(500).json({error: "failed to get signal"});
 
         return
     }
@@ -93,13 +93,13 @@ app.get("/signals", async (_req: Request, res: Response) => {
 
 app.post("/analyze-message", async (req: Request, res: Response) => {
 
-    const {text, timestamp} = req.body;
+    const {text, timestamp} = (req.body as unknown) as {text: string, timestamp: string};
     console.log("endpoint data", text, timestamp);
 
     try {
         const response = await GoldbeClass.createSignal(text, timestamp);
 
-        res.json(response);
+        (res as any).json(response);
     }
 
     catch (error) {

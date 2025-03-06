@@ -14,7 +14,6 @@ if (!apiKeyGold) {
 
 export class beClass {
 
-    private goldPriceIntervalId: NodeJS.Timeout | null = null;
 
 
     async registerUser(user: User) {
