@@ -1,7 +1,10 @@
 import express from "express";
 import cors from "cors";
 import {User} from "./betypes.";
+import {Request, Response} from "express";
 import GoldbeClass from "./beClass";
+import {Api} from "telegram";
+import ReqPq = Api.ReqPq;
 
 
 const app = express();
@@ -20,7 +23,7 @@ app.use(express.json());
 
 
 
-app.post("/users", async (req, res) => {
+app.post("/users", async (req : Request, res: Response) => {
     try {
         const user: User = req.body;
 
@@ -44,7 +47,7 @@ app.post("/users", async (req, res) => {
     }
 })
 
-app.get("/goldprice/:currency", async (req, res) => {
+app.get("/goldprice/:currency", async (req: Request, res: Response) => {
 
     const currency = req.params.currency;
 
@@ -68,7 +71,7 @@ app.get("/goldprice/:currency", async (req, res) => {
     }
 })
 
-app.get("/signals", async (_req, res) => {
+app.get("/signals", async (_req: Request, res: Response) => {
     try {
         const response = await GoldbeClass.getAllSignals();
 
@@ -88,7 +91,7 @@ app.get("/signals", async (_req, res) => {
     }
 })
 
-app.post("/analyze-message", async (req, res) => {
+app.post("/analyze-message", async (req: Request, res: Response) => {
 
     const {text, timestamp} = req.body;
     console.log("endpoint data", text, timestamp);
