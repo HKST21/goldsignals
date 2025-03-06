@@ -1,5 +1,16 @@
 import {Signal, User} from "./betypes.";
 import pool from "./database";
+import dotenv from "dotenv";
+
+if (process.env.NODE_ENV !== 'production') {
+    dotenv.config();
+}
+
+const apiKeyGold = process.env.METAL_PRICE_KEY_GOLD;
+
+if (!apiKeyGold) {
+    console.warn('METAL_PRICE_KEY_GOLD not set! API calls will fail unless set properly.');
+}
 
 export class beClass {
 
@@ -42,7 +53,8 @@ export class beClass {
 
     async addGoldPriceToDB(currency: string) {
         try {
-            const response = await fetch(`https://api.metalpriceapi.com/v1/latest?api_key=2b5804db68a17a8bb3030df1de828473&base=${currency}&currencies=XAU`);
+
+            const response = await fetch(`https://api.metalpriceapi.com/v1/latest?api_key=${apiKeyGold}&base=${currency}&currencies=XAU`);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -80,57 +92,9 @@ export class beClass {
         // Spustíme první aktualizaci okamžitě
         await updatePrice();
 
-        // Nastavíme pravidelné aktualizace
-        const intervalId = setInterval(updatePrice, intervalMs);
-
-        // Uložíme ID intervalu pro případné pozdější zastavení
-        this.goldPriceIntervalId = intervalId;
-
-        return intervalId;
+        setInterval(updatePrice, intervalMs);
     }
 
-// Přidáme metodu pro zastavení aktualizací
-    stopGoldPriceUpdates() {
-        if (this.goldPriceIntervalId) {
-            clearInterval(this.goldPriceIntervalId);
-            this.goldPriceIntervalId = null;
-            console.log('Gold price updates stopped');
-        }
-    }
-
-
-
-
-    async getGoldPrice(currency: string) {
-
-        try {
-
-            const response = await fetch(`https://api.metalpriceapi.com/v1/latest?api_key=2b5804db68a17a8bb3030df1de828473&base=${currency}&currencies=XAU`);
-
-            if (response.ok) {
-
-                const data = await response.json();
-
-                const goldPrices = await pool.query(`INSERT INTO goldprice(price) VALUES ($1) RETURNING *`, [data.rates.USDXAU] );
-
-                const lastPriceOfGold = goldPrices.rows[0];
-
-                return lastPriceOfGold;
-            }
-
-
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-
-        } catch (error) {
-            console.error(error);
-        }
-
-
-    }
 
     async createSignal(text: string, timestamp: string) {
 

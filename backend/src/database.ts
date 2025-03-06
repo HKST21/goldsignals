@@ -1,12 +1,15 @@
 import {Pool} from "pg";
+import dotenv from "dotenv";
 
-const pool = new Pool({ // vytvoříme spojení s databází postgresql
-    user: 'postgres',
-    host: 'localhost',
-    database: 'goldsignals',
-    password: 'Admin',
-    port: 5432
-})
+if (process.env.NODE_ENV !== 'production') {
+    dotenv.config();
+}
+
+// Vytvoření konfigurace pro připojení k databázi
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL || "postgresql://postgres:Admin@localhost:5432/goldsignals",
+    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+});
 
 const initDatabase = async () => {
     try {
@@ -43,6 +46,8 @@ const initDatabase = async () => {
     }
 }
 
-initDatabase() // vytvořím databází včetně první tabulky
+if (process.env.NODE_ENV !== 'production') {
+    initDatabase();
+} // vytvořím databází včetně první tabulky
 
 export default pool
