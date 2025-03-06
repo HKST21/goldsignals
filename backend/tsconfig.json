@@ -8,18 +8,13 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react-jsx",         // Přidáno pro podporu JSX syntaxe
-    "resolveJsonModule": true,  // Umožňuje import JSON souborů
-    "moduleResolution": "node", // Zajišťuje správné rozpoznávání Node.js modulů
-    "typeRoots": [              // Explicitně definuje, kde hledat typové definice
+    "jsx": "react-jsx",
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "typeRoots": [
       "./node_modules/@types"
-    ],
-    "types": [                  // Explicitně uvádí typy, které mají být zahrnuty
-      "node",
-      "express",
-      "cors",
-      "pg"
     ]
+    // Odstraněna sekce "types"
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
