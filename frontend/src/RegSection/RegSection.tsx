@@ -1,7 +1,7 @@
 import * as React from "react";
 import {useState} from "react";
-import {feClass} from "../Class/FeClass.ts";
-import {SectionPick} from "../App.tsx";
+import {feClass} from "../Class/FeClass";
+import {SectionPick} from "../App";
 import "./RegSection.css"
 import {SquareCheckBig} from 'lucide-react'
 

@@ -1,9 +1,9 @@
 import React from 'react';
-import {Header} from "../Header/Header.tsx";
-import {Footer} from "../Footer/Footer.tsx";
+import {Header} from "../Header/Header";
+import {Footer} from "../Footer/Footer";
 import "./Layout.css"
-import {User} from "../Types/types.ts";
-import {SectionPick} from "../App.tsx";
+import {User} from "../Types/types";
+import {SectionPick} from "../App";
 
 interface LayoutProps {
     children: React.ReactNode;

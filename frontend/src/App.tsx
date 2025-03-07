@@ -1,10 +1,10 @@
 import {useState} from "react";
 import './App.css'
-import {Layout} from "./Layout/Layout.tsx";
-import {RegSection} from "./RegSection/RegSection.tsx";
-import {Reviews} from "./Reviews/Reviews.tsx";
-import {User} from "./Types/types.ts";
-import {Signals} from "./Signals/Signals.tsx";
+import {Layout} from "./Layout/Layout";
+import {RegSection} from "./RegSection/RegSection";
+import {Reviews} from "./Reviews/Reviews";
+import {User} from "./Types/types";
+import {Signals} from "./Signals/Signals";
 
 
 export type SectionPick = 'register' | 'signals';

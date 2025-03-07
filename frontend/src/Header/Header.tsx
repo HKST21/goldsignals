@@ -1,7 +1,7 @@
 import "./Header.css"
-import {User} from "../Types/types.ts";
+import {User} from "../Types/types";
 import React from "react";
-import {SectionPick} from "../App.tsx";
+import {SectionPick} from "../App";
 
 interface HeaderProps {
     loggedUser: User | null,
