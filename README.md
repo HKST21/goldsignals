@@ -1,50 +1,35 @@
-# React + TypeScript + Vite
+**Gold Signals ✨**
+A web application for monitoring gold prices and trading signals with user registration. 📊
+Project Description
+Gold Signals is a web application that displays current gold prices and trading signals. The project is still under development and uses a free API tier for gold price updates, which provides limited data. Future plans include upgrading to a paid tier for real-time gold price updates every 15 seconds. 💰
+Features
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Gold Price Tracking - Current gold prices with periodic updates 📈
+Trading Signals - Overview of buy/sell signals with entry prices, take profit (TP) and stop-loss (SL) levels
+User Accounts - Registration and login functionality 🔐
+Telegram Integration - Signals can be created by scraping Telegram messages via a Chrome extension 📱
 
-Currently, two official plugins are available:
+**Technologies**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Frontend: React, TypeScript, Vite
+Backend: Node.js, Express, TypeScript
+Database: PostgreSQL
+Deployment: Frontend on GitHub Pages, Backend and Database on Render 🚀
 
-## Expanding the ESLint configuration
+**TRY DEMO**
+https://hkst21.github.io/goldsignals/
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+**Future Plans**
 
-- Configure the top-level `parserOptions` property like this:
+Upgrading to a paid API tier for more frequent gold price updates ⏱️
+Enhanced data visualization with advanced charts
+Expanded signal analysis capabilities
+Support for additional precious metals and commodities 💎
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+**Acknowledgements**
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Claude.ai assisted with the deployment process to Render and GitHub Pages
+The application uses the Metal Price API FREE TIER for gold price data
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Author
+HKST21 - Developer of Gold Signals 👨‍💻
