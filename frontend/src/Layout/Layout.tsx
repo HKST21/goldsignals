@@ -1,10 +1,11 @@
+import AdServer from "../AdServer/AdServer";
 import React from 'react';
 import {Header} from "../Header/Header";
 import {Footer} from "../Footer/Footer";
 import "./Layout.css"
 import {User} from "../Types/types";
 import {SectionPick} from "../App";
-import AdServer from "../AdServer/AdServer";
+
 
 interface LayoutProps {
     children: React.ReactNode;
