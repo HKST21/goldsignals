@@ -60,7 +60,7 @@ export function RegSection({setCurrentSection, setLoggedUser}: SectionProps) {
         <div className={"main-section"}>
             <div className="info-section">
                 <h2>
-                    We <span>analyse</span> the GOLD market so you can trade. Elevate your winning trades on XAUUSD!
+                    xxTESTxx We <span>analyse</span> the GOLD market so you can trade. Elevate your winning trades on XAUUSD!
                 </h2>
                 <p>
                     We are here to help you <span>beat</span> the market. Are you struggling with your trading account ? We believe in mastering one asset, than focuse on everything at once.
