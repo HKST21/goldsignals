@@ -4,6 +4,7 @@ import {Footer} from "../Footer/Footer";
 import "./Layout.css"
 import {User} from "../Types/types";
 import {SectionPick} from "../App";
+import AdServer from "../AdServer/AdServer";
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -13,16 +14,23 @@ interface LayoutProps {
 }
 
 export function Layout({children, loggedUser, setLoggedUser, setCurrentSection}: LayoutProps) {
-
-
     return (
-        <div>
-            <Header loggedUser={loggedUser} setLoggedUser={setLoggedUser} setCurrentSection={setCurrentSection} />
-            <div>
+        <div className="Layout">
+            <div className="header-area">
+                <Header loggedUser={loggedUser} setLoggedUser={setLoggedUser} setCurrentSection={setCurrentSection} />
+            </div>
+
+            <div className="content-area">
                 {children}
             </div>
-            <Footer/>
+
+            <div className="sidebar-area">
+                <AdServer />
+            </div>
+
+            <div className="footer-area">
+                <Footer />
+            </div>
         </div>
     );
 };
-

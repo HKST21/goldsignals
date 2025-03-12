@@ -1,7 +1,27 @@
 .Layout {
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto 1fr auto; /* řádky pro header, obsah+sidebar a footer */
+    grid-template-columns: 1fr auto; /* sloupce pro obsah a sidebar */
+    grid-template-areas:
+        "header header"
+        "content sidebar"
+        "footer footer";
     min-height: 100vh;
-    padding: 2rem;
 
+}
+
+.header-area {
+    grid-area: header;
+}
+
+.content-area {
+    grid-area: content;
+}
+
+.sidebar-area {
+    grid-area: sidebar;
+}
+
+.footer-area {
+    grid-area: footer;
 }
