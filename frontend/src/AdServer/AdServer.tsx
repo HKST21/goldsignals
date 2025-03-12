@@ -57,9 +57,10 @@ export default function () {
                 style={{
                     width: "120px",
                     height: "600px",
-                    display: "flex",
+                    display: "none",
                     justifyContent: "center",
                     alignItems: "center",
+
                 }}
             >
 

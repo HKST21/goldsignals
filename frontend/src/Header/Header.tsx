@@ -30,7 +30,7 @@ export function Header({loggedUser, setLoggedUser, setCurrentSection} : HeaderPr
             )}
 
             <div>
-                <img className={"img"} src={"./public/logo2.png"}/>
+                <img className={"img"} src={import.meta.env.BASE_URL + "logo2.png"}/>
             </div>
             {loggedUser ? (
                 <button  onClick={handleLogout}>LOG OUT</button>
